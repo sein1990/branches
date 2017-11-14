@@ -1,4 +1,3 @@
-<%@page import="java.time.Month"%>
 <%@page import="java.lang.String"%>
 <%@page import="java.io.IOException"%>
 <%@page import="java.io.FileInputStream"%>
@@ -263,7 +262,7 @@ function buildEmployeeTable(){
 <body onload="buildPage();">
 	<div id="wrapper">
     	<!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
-    	      <img src="METLLogo.jpg" style="width:150px;height:100px;"></a>
+        <img src="METLLogo.jpg" style="width:150px;height:100px;"><b></b>
         <%	if(request.getSession().getAttribute("Permission")==null){ 
                     response.sendRedirect("index.jsp");
 		}%>
@@ -278,7 +277,7 @@ function buildEmployeeTable(){
                     <li><% out.print("<a href='dailypage.jsp?buttonid="+1+"&date="+mydate+"&month="+month+"&year="+year+"&branchid="+branchid+"'>");%>Print Document</a></li>
             	 </ul>
                 </div>    
-                <h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Daily Page</a>&raquo;    <%=mydate+"-"+Month.of(month).name()+"-"+year%></h2>
+                <h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Daily Page</a>&raquo;    <%=mydate+"-"+ConstantClass.fullMonthNames[month]+"-"+year%></h2>
 		<div id="main">
                     <form action="UandSServlet" method="post" enctype="multipart/form-data">                      
                     <input type="hidden"  name="date" value="<%=mydate%>" >

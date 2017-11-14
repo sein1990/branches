@@ -33,18 +33,14 @@ function onChangeYearsOrMonthsList() {
 }
 
 function directToDailyPage(date){
-	
-	
 	var branchID = document.getElementById('branchSelect').value;
 	var month = document.getElementById('monthSelect').value;
 	var year = document.getElementById('yearSelect').value;
         if(branchID == 0)
            alert("Please Select the Branch First !");
 	else 
-            window.open("dailypage.jsp?buttonid="+0+"&date="+date+"&month="+month+"&year="+year+"&branchid="+branchID,'targetWindow','toolbar=no,location=no, status=no, menubar=no, scrollbars=yes,resizable=yes,width=SomeSize, height=SomeSize');
-	
+            window.open("dailypage.jsp?buttonid="+0+"&date="+date+"&month="+month+"&year="+year+"&branchid="+branchID,'targetWindow','toolbar=no,location=no, status=no, menubar=no, scrollbars=yes,resizable=yes,width=SomeSize, height=SomeSize');	
 }
-
 function buildCalender(){
 	<% Integer AdminBranchID = (Integer) session.getAttribute("Permission");
 	   InternalMainClass main = new InternalMainClass();
@@ -92,9 +88,11 @@ function buildCalender(){
                 </div>
 	         <h2><a href="#">Attendance Board</a> &raquo;	
 			 <select id="branchSelect" name="branchSelect" class="jNiceSelectWrapperBra"> 
+                             
 			
 				<%  if(AdminBranchID == 0){
-						String st2 = "<option value='0' > - All Branches - </option>";
+				
+                                    String st2 = "<option value='0' > - All Branches - </option>";
 						out.print(st2);	
 						for (Object key : main.getBranchVec().keySet()) {
 							st2 = "<option value='"+key.toString()+"' > "+main.getSpecificBranch((Integer) key)+" </option>";
@@ -104,18 +102,14 @@ function buildCalender(){
 					}else{
 						
 						String BraName = main.getSpecificBranch(AdminBranchID);
-						
+					
 						String st2 = "<option value='"+AdminBranchID+"' > "+BraName+" </option>";
 						out.print(st2);
 				    }
 					main.prepareDirectoriesList(AdminBranchID);
 				%>
 			</select>
-				 
-
-				
-			
-
+		
 			<%MyDate currentDate = new MyDate(); %>
 				
                 <select id="monthSelect" name="monthSelect" class="jNiceSelectWrapperBra" onchange="buildCalender()">
@@ -132,8 +126,7 @@ function buildCalender(){
 		    <option value="9"  <% if(currentDate.getMonth()-1 == 9)  out.print("selected='selected'"); %> >October</option>
 		    <option value="10" <% if(currentDate.getMonth()-1 == 10) out.print("selected='selected'"); %> >November</option>
 		    <option value="11" <% if(currentDate.getMonth()-1 == 11) out.print("selected='selected'"); %> >December</option>
-		</select>		
-		
+		</select>
                 <select id="yearSelect" name="yearSelect" class="jNiceSelectWrapperBra" onchange="buildCalender()">
 					
                     <% out.print("<option value='-1'>-Please Select Year-</option>"); %>
@@ -163,11 +156,7 @@ function buildCalender(){
         <!-- // #containerHolder -->
     
     </div>
-    <!-- // #wrapper -->
-	
-	
-	
-	
+    <!-- // #wrapper -->	
 </body>
 </html>
 

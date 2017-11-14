@@ -113,7 +113,7 @@ function buildReportForm(){
                 }
             }
             else{
-		form = form + "<option value='"+main.getSpecificBranch(AdminBranchID)+"'>";
+		form = form + "<option value='"+main.getSpecificBranch(AdminBranchID)+"-"+AdminBranchID+"'>";
             }
         form = form +"</datalist>";
         

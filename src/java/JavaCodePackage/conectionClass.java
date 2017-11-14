@@ -34,7 +34,7 @@ public class conectionClass {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con=DriverManager.getConnection(
-                    "jdbc:oracle:thin:@192.168.14.77:1521:orcl","mgpayroll","payroll");
+                    "jdbc:oracle:thin:@192.168.175.77:1521:orcl","mgpayroll","payroll");
             
             
 
@@ -52,13 +52,14 @@ public class conectionClass {
    
     public ResultSet excuteQuery(String Query){
         ResultSet rs = null;
+        String s = "null";
         try{  
             
             stmt=con.createStatement();  
             rs=stmt.executeQuery(Query);  
           
         }catch(Exception e){ 
-          
+          s = e.getMessage();
         }  
 
          

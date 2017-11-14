@@ -171,11 +171,12 @@ public class MasterRoller {
     
     
     private String getDateOfJoining(String compID,String empID){
+         conectionClass c1 = new conectionClass();
          String returnVal = "null";  
          String query =q.getDOJ(compID, empID);
          
          try {
-           ResultSet res = c.excuteQuery(query);
+           ResultSet res = c1.excuteQuery(query);
            if(res != null){
               while(res.next()) {
                    String value = res.getString(1);
@@ -187,7 +188,7 @@ public class MasterRoller {
             //Logger.getLogger(InternalMainClass.class.getName()).log(Level.SEVERE, null, ex);
       }
          
-         
+         c1.closeConnection();
          return returnVal;
     }
     
@@ -234,17 +235,19 @@ public class MasterRoller {
     }
     
     private void addToLeaveTracker(PayrollVecItem item,String DOJ,int d,int m,int y){
-        
+           conectionClass c3 = new conectionClass(); 
           String query =q.addToLeaveTracker(BranchId,item.getEmpId(),DOJ,item.getAnnaulLeave()
                         ,item.getCompLeave(),item.getMedicalLeave(),item.getMatLeave(),item.getPatLeave(),
                         getDataFormated(Integer.toString(d),Integer.toString(m) ,Integer.toString(y)));
-         c.excuteQuery(query);
+         c3.excuteQuery(query);
+         c3.closeConnection();
         
     }
     
     private  void dealWithLeaveTracker(PayrollVecItem item,String DOJ,int d,int m,int y){
+         conectionClass c2 = new conectionClass();
         String query = q.getLeaveTrackerData(BranchId, item.getEmpId());
-        ResultSet res =c.excuteQuery(query);
+        ResultSet res =c2.excuteQuery(query);
         boolean t =true;
         if(res != null){
            try {
@@ -258,7 +261,7 @@ public class MasterRoller {
                    
                    query = q.updateLeaveTracker(BranchId,item.getEmpId(),AL,CL,
                    ML,MATL,PATL,getDataFormated(Integer.toString(d),Integer.toString(m) ,Integer.toString(y)));
-                   c.excuteQuery(query);
+                   c2.excuteQuery(query);
                    
                    }
            } catch (SQLException ex) {
@@ -270,6 +273,7 @@ public class MasterRoller {
        else{
               addToLeaveTracker(item,DOJ,d,m,y);  
        }   
+        c2.closeConnection();
     }
     
     
@@ -313,10 +317,11 @@ public class MasterRoller {
             while(res2.next()) {
                 EmpName = res2.getString(1);
             }
-             c1.closeConnection();
+            
         } catch (SQLException ex) {
             Logger.getLogger(MasterRoller.class.getName()).log(Level.SEVERE, null, ex);
         }
+          c1.closeConnection();
          return EmpName;
     }
  
@@ -450,12 +455,12 @@ public class MasterRoller {
     
     
     private Vector<String> getEmployeeId(){
-        
+        conectionClass c4 = new conectionClass();
         Vector<String> empId = new Vector();
       
         String query = q.selectAllEmployeeForBranch(Integer.parseInt(BranchId));
        
-        ResultSet res1 = c.excuteQuery(query);
+        ResultSet res1 = c4.excuteQuery(query);
         try {
             while(res1.next()) {
                   empId.add(res1.getString(1));
@@ -463,6 +468,7 @@ public class MasterRoller {
         } catch (SQLException ex) {
             Logger.getLogger(MasterRoller.class.getName()).log(Level.SEVERE, null, ex);
         }
+        c4.closeConnection();
         return empId;
     }
     
@@ -470,25 +476,26 @@ public class MasterRoller {
     
      private String addDetails(String empId,String dailyDate,String Status){
      
-       
+        conectionClass c4= new conectionClass();
        String savedStatus =  getStatusFromDailyAttandanceTabel(BranchId,empId,dailyDate);
        if(savedStatus.equals("null")){
-           c.excuteQuery(q.addtStatusForSpecificEmpandDate(BranchId,empId,dailyDate,Status));
+           c4.excuteQuery(q.addtStatusForSpecificEmpandDate(BranchId,empId,dailyDate,Status));
        }
 //       else{
 //           c.excuteQuery(q.updateStatusForSpecificEmpandDate(BranchId,empId,dailyDate,Status));
 //       }
        savedStatus =  getStatusFromDailyAttandanceTabel(BranchId,empId,dailyDate);
+       c4.closeConnection();
        return savedStatus;
      }
     
      private String getStatusFromDailyAttandanceTabel(String branchId,String empId,String dailyDate){
-      
+          conectionClass c4 = new conectionClass();   
        String returnVal = "null";  
        String query  = q.selectStatusForSpecificEmpandDate(branchId,empId,dailyDate);
        
        try {
-           ResultSet res = c.excuteQuery(query);
+           ResultSet res = c4.excuteQuery(query);
            if(res != null){
               while(res.next()) {
                    String value = res.getString(1);
@@ -499,6 +506,7 @@ public class MasterRoller {
        }catch (SQLException ex) {
             //Logger.getLogger(InternalMainClass.class.getName()).log(Level.SEVERE, null, ex);
       }
+       c4.closeConnection();
       return returnVal;
     }
      

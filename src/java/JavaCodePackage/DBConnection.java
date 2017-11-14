@@ -20,7 +20,7 @@ public class DBConnection {
      public DBConnection(){
         connnectFun();
         
-        dbLink = "jdbc:oracle:thin:@192.168.14.77:1521:orcl";
+        dbLink = "jdbc:oracle:thin:@192.168.175.77:1521:orcl";
         userName = "mgpayroll";
         password = "payroll";
     }

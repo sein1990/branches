@@ -46,7 +46,7 @@ public class DetailsDataServlet extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             
-               out.println("<h1>Servlet ReportServletNew at ");
+           //    out.println("<h1>Servlet ReportServletNew at ");
                 String[] empid = request.getParameterValues("empid");
                 String[] statusvalue = request.getParameterValues("statusvalue");
                 String[] branchid = request.getParameterValues("branchid");
@@ -56,14 +56,12 @@ public class DetailsDataServlet extends HttpServlet {
                 
                 for(int i=0;i<empid.length;i++){
                   String s = addDetailsDataToDate(branchid[i],empid[i],
-                    getDataFormated(mydate[i],month[i],year[i]),statusvalue[i]);  
-                    
-                  
-                  out.println("<h1>Servlet ReportServletNew at "+branchid[i]+" "
-                          +empid[i]+" "+getDataFormated(mydate[i],month[i],year[i])
-                          +" "+statusvalue[i]+" "+s+"</h1>");
+                  getDataFormated(mydate[i],month[i],year[i]),statusvalue[i]);                    
+//                  out.println("<h1>Attendance has been approved "+branchid[i]+" "
+//                          +empid[i]+" "+getDataFormated(mydate[i],month[i],year[i])
+//                          +" "+statusvalue[i]+" "+s+"</h1>");
                 }
-            
+                out.println("<h1>Attendance has been approved ");
         } catch (Exception ex) {
             Logger.getLogger(ReportServletNew.class.getName()).log(Level.SEVERE, null, ex);
         }finally {            

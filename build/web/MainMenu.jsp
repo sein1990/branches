@@ -15,12 +15,13 @@
        <%	if(request.getSession().getAttribute("Permission")==null){ 
 				response.sendRedirect("index.jsp");
 		}%>
-	   <%  
-			int tabid=1;
-			if(request.getParameter("tabid") != null){
-				tabid = Integer.parseInt(request.getParameter("tabid") );
-			}
-		    Integer AdminBranchID = (Integer) session.getAttribute("Permission");
+        <%  
+	
+                int tabid=1;
+                if(request.getParameter("tabid") != null){
+                    tabid = Integer.parseInt(request.getParameter("tabid") );
+                    }
+                        Integer AdminBranchID = (Integer) session.getAttribute("Permission");
 		
 		%>
 	   
