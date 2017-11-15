@@ -100,7 +100,7 @@ public class ConstantClass {
        else if(code.equals(NullCode))
            return "NY";
        else if(code.equals(WeeklyOffCode))
-           return "WF";
+           return "WO";
        else if(code.equals(NotJoinedYetCode))
            return "NYJ";
        

@@ -196,20 +196,15 @@ function buildEmployeeTable(){
                  HTMLCode = HTMLCode +"<tr class='odd'>";
            }
            HTMLCode = HTMLCode +"<td>"+namesVector.get(i) +"-"+idsVector.get(i)+"</td><td><select id='statusvalue'  name='statusvalue'>";
-           HTMLCode = HTMLCode +"<option value=-3>Choose Status Type</option>";
+         
       
            
            if(status.equals(ConstantClass.AbsentCode))
                 HTMLCode = HTMLCode +"<option selected='selected' value=-1>Absent</option>";
            else 
                 HTMLCode = HTMLCode +"<option value=-1>Absent</option>";
-           
-           if(status.equals(ConstantClass.PresentCode))
-                 HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
-           else 
-                 HTMLCode = HTMLCode +"<option value=00>Full Day</option>";
-           
-           if(status.equals(ConstantClass.HalfDayCode))
+          
+          if(status.equals(ConstantClass.HalfDayCode))
                 HTMLCode = HTMLCode +"<option selected='selected' value=-2>Half Day</option>";
            else 
                 HTMLCode = HTMLCode +"<option value=-2>Half Day</option>";
@@ -221,7 +216,10 @@ function buildEmployeeTable(){
                 HTMLCode = HTMLCode +"<option selected='selected' value=07>Not Joined Yet</option>";
            else 
                 HTMLCode = HTMLCode +"<option value=07>Not Joined Yet</option>";
-           
+           if(status.equals(ConstantClass.PresentCode))
+                 HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
+           else 
+                 HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
            HTMLCode = HTMLCode +"</select></td></tr>";        
            HTMLCode = HTMLCode +"<input type='hidden' id='empid'  name='empid' value='"+idsVector.get(i)+"' />";
            HTMLCode = HTMLCode +"<input type='hidden' id='branchid'  name='branchid' value='"+branchid+"' />";

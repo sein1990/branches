@@ -95,6 +95,8 @@ public class PDFCreatorReportConsalidate {
             p = new Paragraph("SL : Sick Leave", FontFactory.getFont(FontFactory.HELVETICA,11, Font.BOLD));
             document.add(p);
             
+            p = new Paragraph("WO : Weekly Off", FontFactory.getFont(FontFactory.HELVETICA,11, Font.BOLD));
+            document.add(p);
             document.close();
       
         } catch (Exception e) {
