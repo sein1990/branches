@@ -219,7 +219,9 @@ function buildEmployeeTable(){
            if(status.equals(ConstantClass.PresentCode))
                  HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
            else 
-                 HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
+                 HTMLCode = HTMLCode +"<option value=00>Full Day</option>";
+           
+           
            HTMLCode = HTMLCode +"</select></td></tr>";        
            HTMLCode = HTMLCode +"<input type='hidden' id='empid'  name='empid' value='"+idsVector.get(i)+"' />";
            HTMLCode = HTMLCode +"<input type='hidden' id='branchid'  name='branchid' value='"+branchid+"' />";
@@ -275,7 +277,7 @@ function buildEmployeeTable(){
                     <li><% out.print("<a href='dailypage.jsp?buttonid="+1+"&date="+mydate+"&month="+month+"&year="+year+"&branchid="+branchid+"'>");%>Print Document</a></li>
             	 </ul>
                 </div>    
-                <h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Daily Page</a>&raquo;    <%=mydate+"-"+ConstantClass.fullMonthNames[month]+"-"+year%></h2>
+                <h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Daily Page</a>&raquo;    <%=mydate+"-"+ConstantClass.fullMonthNames[month+1]+"-"+year%></h2>
 		<div id="main">
                     <form action="UandSServlet" method="post" enctype="multipart/form-data">                      
                     <input type="hidden"  name="date" value="<%=mydate%>" >
