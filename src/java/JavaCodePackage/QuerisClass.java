@@ -388,5 +388,16 @@ public class QuerisClass {
                   + "COMP_ID='"+CompID+"' and EMP_ID='"+EmpID+"'";
       }
     
-    
+     public String insertIntoBIO_ATTENDANCE_UNIT (String branchId,String month,String year,String postedBy,String postedDate){
+         return "insert into BIO_ATTENDANCE_UNIT (COMP_ID,TRANSACTION_MONTH,"
+               + "TRANSACTION_YEAR,POSTED_BY,POSTED_DATE) values "
+               + "('"+branchId+"','"+month+"','"+year+"','"+postedBy+"',"
+               + "to_char(to_date('"+postedDate+"','DD-MM-RRRR'),'DD-MON-RR'))";
+    }
+     
+    public String selectFromBIO_ATTENDANCE_UNIT(String branchId,String month,String year){
+        return "select POSTED_DATE from BIO_ATTENDANCE_UNIT where "
+             + "COMP_ID='"+branchId+"' and TRANSACTION_MONTH='"+month+"' and "           
+             + "TRANSACTION_YEAR = '"+year+"'";   
+    }    
 }

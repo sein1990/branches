@@ -328,8 +328,6 @@
                     <%
                     }else
                     {
-
-
                         MasterRoller processor = new MasterRoller(BranchName,BranchId,Month,Year,fromDate,toDate);
                         Vector<PayrollVecItem> payrollData = processor.processPayroll();
                         boolean val = false;
@@ -340,21 +338,20 @@
                                 break;
                             }
                         } 
-                        if(!val)
-                        processor.approvePayroll(payrollData); 
-                        
-                        
-                        response.sendRedirect("masterpage.jsp?buttonid="+3+"-"+BranchName+"-"+Month+"-"+Year); 
-                        
-                           %>
-                          <a href="masterpage.jsp?buttonid=3&message="><h2>Approve Attendance Done!!!!!Back Previous Page</h2></a>
-                            <%
-                        
-                        
-                        
-                        
-                            
-                        
+                        if(!val){
+                            if(!processor.checkUpdatedBefore().equals("null")){
+                                %>
+                                <a href="masterpage.jsp?buttonid=3&message="><h2>Already Processed!!!!!Back Previous Page</h2></a>
+                                <%}
+                            else{
+                                processor.approvePayroll(payrollData,"Mo1"); 
+                                %>
+                                <a href="masterpage.jsp?buttonid=3&message="><h2>Approve Attendance Done!!!!!Back Previous Page</h2></a>
+                                <%
+                             }
+                             %>
+                             <%                       
+                        }
                     }
                 }   
                 else if(buttonid == 4){

@@ -189,7 +189,7 @@ function buildEmployeeTable(){
         String status ="null";
         if(empHas.containsKey(idsVector.get(i)))
            status = (String) empHas.get(idsVector.get(i));
-                      
+           boolean defaultChoosen = false;           
            if(evenValue % 2 == 0){
                 HTMLCode = HTMLCode +"<tr>";
            }else{
@@ -199,29 +199,36 @@ function buildEmployeeTable(){
          
       
            
-           if(status.equals(ConstantClass.AbsentCode))
+           if(status.equals(ConstantClass.AbsentCode)){
                 HTMLCode = HTMLCode +"<option selected='selected' value=-1>Absent</option>";
-           else 
+                defaultChoosen = true;
+           }else 
                 HTMLCode = HTMLCode +"<option value=-1>Absent</option>";
           
-          if(status.equals(ConstantClass.HalfDayCode))
+           if(status.equals(ConstantClass.HalfDayCode)){
                 HTMLCode = HTMLCode +"<option selected='selected' value=-2>Half Day</option>";
-           else 
+                defaultChoosen = true;
+           }else 
                 HTMLCode = HTMLCode +"<option value=-2>Half Day</option>";
-            if(status.equals(ConstantClass.WeeklyOffCode))
+           if(status.equals(ConstantClass.WeeklyOffCode)){
                 HTMLCode = HTMLCode +"<option selected='selected' value=06>Weekly Off</option>";
-           else 
+                defaultChoosen = true;
+           }else 
                 HTMLCode = HTMLCode +"<option value=06>Weekly Off</option>";
-             if(status.equals(ConstantClass.NotJoinedYetCode))
+           if(status.equals(ConstantClass.NotJoinedYetCode)){
                 HTMLCode = HTMLCode +"<option selected='selected' value=07>Not Joined Yet</option>";
+                defaultChoosen = true;
+           }
            else 
                 HTMLCode = HTMLCode +"<option value=07>Not Joined Yet</option>";
-           if(status.equals(ConstantClass.PresentCode))
+           if(status.equals(ConstantClass.PresentCode) || !defaultChoosen){
                  HTMLCode = HTMLCode +"<option selected='selected' value=00>Full Day</option>";
+                 defaultChoosen = true;
+           }
            else 
                  HTMLCode = HTMLCode +"<option value=00>Full Day</option>";
            
-           
+               
            HTMLCode = HTMLCode +"</select></td></tr>";        
            HTMLCode = HTMLCode +"<input type='hidden' id='empid'  name='empid' value='"+idsVector.get(i)+"' />";
            HTMLCode = HTMLCode +"<input type='hidden' id='branchid'  name='branchid' value='"+branchid+"' />";

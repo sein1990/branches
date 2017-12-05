@@ -235,7 +235,7 @@ public class MasterRoller {
     }
     
     private void addToLeaveTracker(PayrollVecItem item,String DOJ,int d,int m,int y){
-           conectionClass c3 = new conectionClass(); 
+          conectionClass c3 = new conectionClass(); 
           String query =q.addToLeaveTracker(BranchId,item.getEmpId(),DOJ,item.getAnnaulLeave()
                         ,item.getCompLeave(),item.getMedicalLeave(),item.getMatLeave(),item.getPatLeave(),
                         getDataFormated(Integer.toString(d),Integer.toString(m) ,Integer.toString(y)));
@@ -277,7 +277,7 @@ public class MasterRoller {
     }
     
     
-    public void approvePayroll(Vector<PayrollVecItem> payrollData){
+    public void approvePayroll(Vector<PayrollVecItem> payrollData,String postedPerson){
             c = new conectionClass();
             q =  new QuerisClass();
             
@@ -292,20 +292,61 @@ public class MasterRoller {
                  if(transActionNumber.equals("null")){
                      addToToMonthlyAttandanceTabel(item,d,m,y);
                  }
-                 else{
-                     updateStatusToDailyAttandanceTabel(transActionNumber,d,m,y,item);
-                 }
+            //     else{
+                 //    updateStatusToDailyAttandanceTabel(transActionNumber,d,m,y,item);
+               //  }
                  String DOJ = getDateOfJoining(BranchId,item.getEmpId());
                  DOJ = DOJ.substring(0,DOJ.indexOf(" "));
                  String DOJarray[] = DOJ.split("-");
                  dealWithLeaveTracker(item,getDataFormated(DOJarray[2],
-                  Integer.toString(Integer.parseInt(DOJarray[1])-1), DOJarray[0]),d,m,y);
+                 Integer.toString(Integer.parseInt(DOJarray[1])-1), DOJarray[0]),d,m,y);
                 
             }
              
-            c.closeConnection();
+            c.closeConnection(); 
+            updateBIO_ATTENDANCE_UNIT(postedPerson);
             
     }
+    public String checkUpdatedBefore(){
+        conectionClass c9 = new conectionClass();
+        QuerisClass q1 =  new QuerisClass();
+        String q = q1.selectFromBIO_ATTENDANCE_UNIT(BranchId,ConstantClass.fullMonthNames[Integer.parseInt(Month)],Year);
+        ResultSet res = c9.excuteQuery(q);
+        String postedDate = "";
+        if(res != null){
+            try {
+                int i=0;
+                while(res.next()) {
+                    postedDate  =  res.getString(1);
+                   
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MasterRoller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+        c9.closeConnection();
+        return postedDate;
+    }
+    
+    
+    private void updateBIO_ATTENDANCE_UNIT(String PostedBy){
+        conectionClass c8 = new conectionClass();
+        QuerisClass q1 =  new QuerisClass();
+        Calendar cal = Calendar.getInstance();
+        int d = cal.get(Calendar.DATE);
+        int m = cal.get(Calendar.MONTH);
+        int y = cal.get(Calendar.YEAR);
+        String postedDate = getDataFormated(Integer.toString(d),Integer.toString(m),Integer.toString(y));
+        
+        String q = q1.insertIntoBIO_ATTENDANCE_UNIT(BranchId, ConstantClass.fullMonthNames[m+1], this.Year, PostedBy,postedDate);
+        c8.excuteQuery(q);
+        c8.closeConnection();
+        
+        
+        
+    } 
+    
+    
     private String getEmployeeName(String BID,String EID){
          conectionClass c1 = new conectionClass();
          QuerisClass q1 =  new QuerisClass();
@@ -476,7 +517,7 @@ public class MasterRoller {
     
      private String addDetails(String empId,String dailyDate,String Status){
      
-        conectionClass c4= new conectionClass();
+       conectionClass c4= new conectionClass();
        String savedStatus =  getStatusFromDailyAttandanceTabel(BranchId,empId,dailyDate);
        if(savedStatus.equals("null")){
            c4.excuteQuery(q.addtStatusForSpecificEmpandDate(BranchId,empId,dailyDate,Status));
