@@ -34,7 +34,7 @@ public class conectionClass {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con=DriverManager.getConnection(
-                    "jdbc:oracle:thin:@192.168.175.77:1521:orcl","mgpayroll","payroll");
+                    "jdbc:oracle:thin:@192.168.182.77:1521:orcl","mgpayroll","payroll");
             
             
 
